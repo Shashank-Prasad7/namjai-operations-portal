@@ -3,21 +3,20 @@
 A lightweight admin dashboard for Namjai Foundation to provide visibility into volunteers, camps, referrals, and partnerships.
 
 ## Project Structure
-namjai-operations-portal/
-├── frontend/ # Static frontend prototype (Phase 3)
-│ ├── index.html # Dashboard
-│ ├── volunteers.html
-│ ├── camps.html
-│ ├── referrals.html
-│ ├── partners.html
-│ ├── interns.html
-│ ├── css/
-│ │ └── style.css
-│ └── js/
-│ └── script.js
-└── docs/ # Documentation (Phase 2)
-└── Phase 2 Deliverables Document.docx
-
+namjai-operations-portal/  
+├── frontend/ # Static frontend prototype (Phase 3)  
+│ ├── index.html # Dashboard  
+│ ├── volunteers.html  
+│ ├── camps.html  
+│ ├── referrals.html  
+│ ├── partners.html  
+│ ├── interns.html  
+│ ├── css/  
+│ │ └── style.css  
+│ └── js/  
+│ └── script.js  
+└── docs/ # Documentation (Phase 2)  
+└── Phase 2 Deliverables Document.docx  
 
 ## Technologies Used
 
