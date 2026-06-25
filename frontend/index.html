@@ -1,1 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Namjai Operations Portal</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
 
+    <!-- ===== NAVIGATION ===== -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">📊 Namjai Ops</a>
+            <button class="nav-toggle" id="navToggle">☰</button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="active">Dashboard</a></li>
+                <li><a href="volunteers.html">Volunteers</a></li>
+                <li><a href="camps.html">Camps</a></li>
+                <li><a href="referrals.html">Referrals</a></li>
+                <li><a href="partners.html">Partners</a></li>
+                <li><a href="interns.html">Interns</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- ===== MAIN CONTENT ===== -->
+    <main class="container">
+        <h1>📊 Dashboard</h1>
+        <p class="subtitle">Overview of Namjai Foundation operations</p>
+
+        <!-- ===== KPI CARDS ===== -->
+        <section class="kpi-grid" id="kpiGrid">
+            <!-- Cards will be injected by JavaScript -->
+        </section>
+
+        <!-- ===== CHARTS & ACTIVITY ===== -->
+        <section class="dashboard-grid">
+            <div class="card">
+                <h3>📈 Camps by Month</h3>
+                <div class="chart-placeholder" id="campChart">
+                    <div class="bar-chart" id="barChart"></div>
+                </div>
+            </div>
+            <div class="card">
+                <h3>🧑‍🤝‍🧑 Volunteers by Lane</h3>
+                <div class="chart-placeholder" id="laneChart">
+                    <div class="pie-chart" id="pieChart"></div>
+                </div>
+            </div>
+            <div class="card full-width">
+                <h3>📋 Recent Activity</h3>
+                <ul class="activity-list" id="activityList">
+                    <!-- Injected by JavaScript -->
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/script.js"></script>
+</body>
+</html>
