@@ -15,8 +15,7 @@ namjai-operations-portal/
 │ │ └── style.css  
 │ └── js/  
 │ └── script.js  
-└── docs/ # Documentation (Phase 2)  
-└── Phase 2 Deliverables Document.docx  
+└── README.md  
 
 ## Technologies Used
 
