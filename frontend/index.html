@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard - Namjai Operations Portal</title>
     <link rel="stylesheet" href="css/style.css" />
+    <!-- Chart.js CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -31,21 +33,21 @@
 
         <!-- ===== KPI CARDS ===== -->
         <section class="kpi-grid" id="kpiGrid">
-            <!-- Cards will be injected by JavaScript -->
+            <!-- Injected by JavaScript -->
         </section>
 
-        <!-- ===== CHARTS & ACTIVITY ===== -->
+        <!-- ===== CHARTS ===== -->
         <section class="dashboard-grid">
             <div class="card">
                 <h3>📈 Camps by Month</h3>
-                <div class="chart-placeholder" id="campChart">
-                    <div class="bar-chart" id="barChart"></div>
+                <div class="chart-wrapper">
+                    <canvas id="campChart"></canvas>
                 </div>
             </div>
             <div class="card">
                 <h3>🧑‍🤝‍🧑 Volunteers by Lane</h3>
-                <div class="chart-placeholder" id="laneChart">
-                    <div class="pie-chart" id="pieChart"></div>
+                <div class="chart-wrapper">
+                    <canvas id="laneChart"></canvas>
                 </div>
             </div>
             <div class="card full-width">
