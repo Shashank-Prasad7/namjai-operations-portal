@@ -526,3 +526,38 @@ tr.clickable:hover {
         padding: 0.5rem;
     }
 }
+
+/* ===== CHART WRAPPER ===== */
+.chart-wrapper {
+    position: relative;
+    height: 220px;
+    width: 100%;
+}
+
+/* ===== CHART CONTAINER ===== */
+#campChart,
+#laneChart {
+    max-height: 220px;
+    max-width: 100%;
+}
+
+/* ===== RESPONSIVE CHART FIXES ===== */
+@media (max-width: 768px) {
+    .chart-wrapper {
+        height: 180px;
+    }
+    #campChart,
+    #laneChart {
+        max-height: 180px;
+    }
+}
+
+@media (max-width: 480px) {
+    .chart-wrapper {
+        height: 150px;
+    }
+    #campChart,
+    #laneChart {
+        max-height: 150px;
+    }
+}
