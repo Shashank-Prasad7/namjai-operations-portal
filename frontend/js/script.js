@@ -49,6 +49,10 @@ let currentPage = 1;
 const rowsPerPage = 5;
 let filteredVolunteers = [...volunteersData];
 
+// Chart instances (to prevent duplicate renders)
+let campChartInstance = null;
+let laneChartInstance = null;
+
 // ========================================
 // DASHBOARD
 // ========================================
@@ -85,37 +89,122 @@ function renderDashboard() {
         `).join('');
     }
 
-    // Bar Chart (Camps by Month)
-    const barChart = document.getElementById('barChart');
-    if (barChart) {
-        const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May'];
-        const counts = [2, 1, 1, 0, 1];
-        const max = Math.max(...counts, 1);
-        barChart.innerHTML = months.map((m, i) => `
-            <div class="bar">
-                <div class="bar-fill" style="height: ${(counts[i] / max) * 120}px;"></div>
-                <span class="bar-label">${m}</span>
-            </div>
-        `).join('');
-    }
-
-    // Pie Chart (Volunteers by Lane)
-    const pieChart = document.getElementById('pieChart');
-    if (pieChart) {
-        const lanes = {};
-        volunteersData.forEach(v => {
-            lanes[v.lane] = (lanes[v.lane] || 0) + 1;
+    // ---- CAMPS BY MONTH (Bar Chart using Chart.js) ----
+    const campCtx = document.getElementById('campChart')?.getContext('2d');
+    if (campCtx) {
+        // Destroy existing chart if it exists
+        if (campChartInstance) {
+            campChartInstance.destroy();
+        }
+        
+        campChartInstance = new Chart(campCtx, {
+            type: 'bar',
+            data: {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                datasets: [{
+                    label: 'Number of Camps',
+                    data: [2, 1, 1, 0, 1, 0],
+                    backgroundColor: ['#1a73e8', '#1a73e8', '#1a73e8', '#dadce0', '#1a73e8', '#dadce0'],
+                    borderRadius: 6,
+                    borderSkipped: false,
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                return context.parsed.y + ' camp' + (context.parsed.y !== 1 ? 's' : '');
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        ticks: {
+                            stepSize: 1,
+                            font: { size: 10 }
+                        },
+                        grid: {
+                            color: 'rgba(0,0,0,0.05)'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            font: { size: 10 }
+                        }
+                    }
+                }
+            }
         });
-        const colors = ['#1a73e8', '#34a853', '#fbbc04', '#ea4335', '#8ab4f8', '#f9ab00', '#d93025'];
-        let colorIndex = 0;
-        pieChart.innerHTML = Object.entries(lanes).map(([lane, count]) => {
-            const color = colors[colorIndex % colors.length];
-            colorIndex++;
-            return `<div class="pie-slice"><span class="color-dot" style="background:${color}"></span> ${lane}: ${count}</div>`;
-        }).join('');
     }
 
-    // Recent Activity
+    // ---- VOLUNTEERS BY LANE (Pie Chart using Chart.js) ----
+    const laneCtx = document.getElementById('laneChart')?.getContext('2d');
+    if (laneCtx) {
+        // Destroy existing chart if it exists
+        if (laneChartInstance) {
+            laneChartInstance.destroy();
+        }
+
+        // Group volunteers by lane
+        const laneCounts = {};
+        volunteersData.forEach(v => {
+            laneCounts[v.lane] = (laneCounts[v.lane] || 0) + 1;
+        });
+
+        const laneLabels = Object.keys(laneCounts);
+        const laneValues = Object.values(laneCounts);
+        const colors = ['#1a73e8', '#34a853', '#fbbc04', '#ea4335', '#8ab4f8', '#f9ab00'];
+
+        laneChartInstance = new Chart(laneCtx, {
+            type: 'pie',
+            data: {
+                labels: laneLabels,
+                datasets: [{
+                    data: laneValues,
+                    backgroundColor: colors.slice(0, laneLabels.length),
+                    borderWidth: 2,
+                    borderColor: '#ffffff',
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: true,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            padding: 12,
+                            usePointStyle: true,
+                            pointStyle: 'circle',
+                            font: { size: 11 }
+                        }
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function(context) {
+                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                                const percentage = ((context.parsed / total) * 100).toFixed(1);
+                                return context.label + ': ' + context.parsed + ' (' + percentage + '%)';
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    // ---- RECENT ACTIVITY ----
     const activityList = document.getElementById('activityList');
     if (activityList) {
         const activities = [
@@ -166,7 +255,6 @@ function renderVolunteers() {
             </tr>
         `).join('');
 
-        // Click to open modal
         tbody.querySelectorAll('.clickable').forEach(row => {
             row.addEventListener('click', function() {
                 const id = this.dataset.id;
@@ -243,11 +331,6 @@ function renderCamps() {
             });
         });
     }
-
-    const countSpan = document.getElementById('campCount');
-    if (countSpan) {
-        countSpan.textContent = `Showing ${filtered.length} of ${campsData.length}`;
-    }
 }
 
 function openCampModal(camp) {
@@ -299,7 +382,6 @@ function renderReferrals() {
         `).join('');
     }
 
-    // Status Summary
     const summary = document.getElementById('referralStatusSummary');
     if (summary) {
         const treated = referralsData.filter(r => r.status === 'Treated').length;
@@ -373,7 +455,6 @@ function renderInterns() {
         `).join('');
     }
 
-    // Certificate Summary
     const summary = document.getElementById('internStatusSummary');
     if (summary) {
         const issued = internsData.filter(i => i.certificateIssued === 'Yes').length;
