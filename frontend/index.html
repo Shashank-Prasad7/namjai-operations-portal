@@ -5,12 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard - Namjai Operations Portal</title>
     <link rel="stylesheet" href="css/style.css" />
-    <!-- Chart.js CDN -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
-    <!-- ===== NAVIGATION ===== -->
     <nav class="navbar">
         <div class="nav-container">
             <a href="index.html" class="nav-brand">📊 Namjai Ops</a>
@@ -26,17 +24,16 @@
         </div>
     </nav>
 
-    <!-- ===== MAIN CONTENT ===== -->
     <main class="container">
         <h1>📊 Dashboard</h1>
         <p class="subtitle">Overview of Namjai Foundation operations</p>
 
-        <!-- ===== KPI CARDS ===== -->
+        <!-- KPI CARDS -->
         <section class="kpi-grid" id="kpiGrid">
-            <!-- Injected by JavaScript -->
+            <div class="loading">⏳ Loading data...</div>
         </section>
 
-        <!-- ===== CHARTS ===== -->
+        <!-- CHARTS -->
         <section class="dashboard-grid">
             <div class="card">
                 <h3>📈 Camps by Month</h3>
@@ -53,12 +50,15 @@
             <div class="card full-width">
                 <h3>📋 Recent Activity</h3>
                 <ul class="activity-list" id="activityList">
-                    <!-- Injected by JavaScript -->
+                    <li>Loading recent activity...</li>
                 </ul>
             </div>
         </section>
     </main>
 
+    <!-- Load scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
     <script src="js/script.js"></script>
 </body>
 </html>
