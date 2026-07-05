@@ -4,7 +4,7 @@
 
 // Google Apps Script Web App URL
 // REPLACE THIS WITH YOUR ACTUAL DEPLOYED URL
-const API_BASE_URL = 'https://script.google.com/macros/s/AKfycbyirFUDbO2rd1Mfx2qc5wf2V9htqE0BNByL00Y2ZkbTFol_k4n-C6kyEOuq0c4l5YG-/exec';
+const API_BASE_URL = 'https://script.google.com/macros/s/AKfycbylyUY3sEM3lQ32Lwbblfu0RHzFTKNo_LaMSLJtkRSjLH2UpsGkgjFr4yip54hfQsDD9w/exec';
 
 // API Endpoints
 const API_ENDPOINTS = {
