@@ -561,3 +561,21 @@ tr.clickable:hover {
         max-height: 150px;
     }
 }
+
+/* ===== LOADING & ERROR STATES ===== */
+.loading {
+    text-align: center;
+    padding: 2rem;
+    color: #5f6368;
+    font-size: 0.95rem;
+}
+
+.error {
+    text-align: center;
+    padding: 2rem;
+    color: #c62828;
+    font-size: 0.95rem;
+    background: #fce8e6;
+    border-radius: 8px;
+    margin: 1rem 0;
+}
