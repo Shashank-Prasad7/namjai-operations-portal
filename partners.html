@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Partners - Namjai Operations Portal</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">📊 Namjai Ops</a>
+            <button class="nav-toggle" id="navToggle">☰</button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="volunteers.html">Volunteers</a></li>
+                <li><a href="camps.html">Camps</a></li>
+                <li><a href="referrals.html">Referrals</a></li>
+                <li><a href="partners.html" class="active">Partners</a></li>
+                <li><a href="interns.html">Interns</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="page-header">
+            <h1>🤝 Partners Directory</h1>
+            <p class="subtitle">Manage partner organizations</p>
+        </div>
+
+        <div class="filter-bar">
+            <input type="text" id="partnerSearch" placeholder="🔍 Search by organization name..." class="search-input" />
+            <select id="partnerTypeFilter" class="filter-select">
+                <option value="all">All Types</option>
+                <option value="Hospital">Hospital</option>
+                <option value="College">College</option>
+                <option value="Corporate">Corporate</option>
+                <option value="NGO">NGO</option>
+                <option value="School">School</option>
+                <option value="Orphanage">Orphanage</option>
+            </select>
+            <select id="partnerStatusFilter" class="filter-select">
+                <option value="all">All Status</option>
+                <option value="Active">Active</option>
+                <option value="Dormant">Dormant</option>
+                <option value="Closed">Closed</option>
+            </select>
+        </div>
+
+        <div class="table-container">
+            <table id="partnerTable">
+                <thead>
+                    <tr>
+                        <th>Partner ID</th>
+                        <th>Organization</th>
+                        <th>Type</th>
+                        <th>Contact Person</th>
+                        <th>Phone</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="partnerTableBody">
+                    <!-- Injected by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
+

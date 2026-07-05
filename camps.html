@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Camps - Namjai Operations Portal</title>
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">📊 Namjai Ops</a>
+            <button class="nav-toggle" id="navToggle">☰</button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">Dashboard</a></li>
+                <li><a href="volunteers.html">Volunteers</a></li>
+                <li><a href="camps.html" class="active">Camps</a></li>
+                <li><a href="referrals.html">Referrals</a></li>
+                <li><a href="partners.html">Partners</a></li>
+                <li><a href="interns.html">Interns</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <div class="page-header">
+            <h1>🏕️ Camp Registry</h1>
+            <p class="subtitle">View all camps and their details</p>
+        </div>
+
+        <div class="filter-bar">
+            <input type="text" id="campSearch" placeholder="🔍 Search by camp name or venue..." class="search-input" />
+            <select id="campCategoryFilter" class="filter-select">
+                <option value="all">All Categories</option>
+                <option value="Healthcare Camp">Healthcare Camp</option>
+                <option value="Dental Camp">Dental Camp</option>
+                <option value="Awareness Session">Awareness Session</option>
+                <option value="Nutrition Program">Nutrition Program</option>
+                <option value="Meal Distribution">Meal Distribution</option>
+            </select>
+            <select id="campStatusFilter" class="filter-select">
+                <option value="all">All Status</option>
+                <option value="Planned">Planned</option>
+                <option value="Completed">Completed</option>
+                <option value="Cancelled">Cancelled</option>
+            </select>
+        </div>
+
+        <div class="table-container">
+            <table id="campTable">
+                <thead>
+                    <tr>
+                        <th>Camp ID</th>
+                        <th>Camp Name</th>
+                        <th>Category</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Beneficiaries</th>
+                        <th>Referrals</th>
+                    </tr>
+                </thead>
+                <tbody id="campTableBody">
+                    <!-- Injected by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+
+        <div class="pagination" id="campPagination">
+            <span id="campCount">Showing 0 of 0</span>
+            <div>
+                <button id="campPrevPageBtn" disabled>Prev</button>
+                <button id="campNextPageBtn">Next</button>
+            </div>
+        </div>
+
+        <!-- Camp Details Modal -->
+        <div class="modal" id="campModal">
+            <div class="modal-content">
+                <span class="modal-close" id="campModalClose">&times;</span>
+                <h2 id="campModalName">Camp Name</h2>
+                <div id="campModalDetails">
+                    <!-- Injected by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
+

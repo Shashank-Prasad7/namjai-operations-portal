@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Namjai Operations Portal</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="nav-brand">📊 Namjai Ops</a>
+            <button class="nav-toggle" id="navToggle">☰</button>
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html" class="active">Dashboard</a></li>
+                <li><a href="volunteers.html">Volunteers</a></li>
+                <li><a href="camps.html">Camps</a></li>
+                <li><a href="referrals.html">Referrals</a></li>
+                <li><a href="partners.html">Partners</a></li>
+                <li><a href="interns.html">Interns</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="container">
+        <h1>📊 Dashboard</h1>
+        <p class="subtitle">Overview of Namjai Foundation operations</p>
+
+        <!-- KPI CARDS -->
+        <section class="kpi-grid" id="kpiGrid">
+            <div class="loading">⏳ Loading data...</div>
+        </section>
+
+        <!-- CHARTS -->
+        <section class="dashboard-grid">
+            <div class="card">
+                <h3>📈 Camps by Month</h3>
+                <div class="chart-wrapper">
+                    <canvas id="campChart"></canvas>
+                </div>
+            </div>
+            <div class="card">
+                <h3>🧑‍🤝‍🧑 Volunteers by Lane</h3>
+                <div class="chart-wrapper">
+                    <canvas id="laneChart"></canvas>
+                </div>
+            </div>
+            <div class="card full-width">
+                <h3>📋 Recent Activity</h3>
+                <ul class="activity-list" id="activityList">
+                    <li>Loading recent activity...</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+
+    <!-- Load scripts -->
+    <script src="js/config.js"></script>
+    <script src="js/api.js"></script>
+    <script src="js/script.js"></script>
+</body>
+</html>
