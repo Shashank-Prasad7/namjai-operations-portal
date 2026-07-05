@@ -1,68 +1,162 @@
-// ========================================
-// SAMPLE DATA (Hardcoded for Static Prototype)
-// ========================================
+// ============================================
+// GLOBAL STATE
+// ============================================
 
-const volunteersData = [
-    { id: 'VOL001', name: 'Priya Sharma', email: 'priya.s@example.com', phone: '9876543210', age: 28, gender: 'F', city: 'Mumbai', occupation: 'Software Eng', organization: 'TechCorp', type: 'Volunteer', source: 'Public Registration', engagement: 'Long-Term', lane: 'Technology', skills: 'Python, Web Dev', availability: 'Weekends', status: 'Active', hours: 32, events: 4 },
-    { id: 'VOL002', name: 'Amit Verma', email: 'amit.v@example.com', phone: '9876543211', age: 34, gender: 'M', city: 'Delhi', occupation: 'Doctor', organization: 'City Hospital', type: 'Medical Volunteer', source: 'Hospital Partner', engagement: 'Event-Based', lane: 'Medical', skills: 'Emergency Care', availability: 'Both', status: 'Active', hours: 24, events: 3 },
-    { id: 'VOL003', name: 'Neha Gupta', email: 'neha.g@example.com', phone: '9876543212', age: 22, gender: 'F', city: 'Bangalore', occupation: 'Student', organization: 'ABC College', type: 'Intern', source: 'University', engagement: 'Internship', lane: 'Outreach & Partnerships', skills: 'Social Media', availability: 'Weekdays', status: 'Active', hours: 16, events: 2 },
-    { id: 'VOL004', name: 'Ravi Kiran', email: 'ravi.k@example.com', phone: '9876543213', age: 45, gender: 'M', city: 'Chennai', occupation: 'Retired', organization: 'None', type: 'Volunteer', source: 'Corporate', engagement: 'Long-Term', lane: 'Ground Operations', skills: 'Logistics', availability: 'Both', status: 'Inactive', hours: 40, events: 5 },
-    { id: 'VOL005', name: 'Sneha Menon', email: 'sneha.m@example.com', phone: '9876543214', age: 29, gender: 'F', city: 'Pune', occupation: 'Dentist', organization: 'Smile Clinic', type: 'Medical Volunteer', source: 'Internal Referral', engagement: 'Event-Based', lane: 'Medical', skills: 'Dental Surgery', availability: 'Weekends', status: 'Active', hours: 18, events: 2 },
-];
+let volunteersData = [];
+let campsData = [];
+let referralsData = [];
+let partnersData = [];
+let internsData = [];
+let beneficiarySummaryData = [];
 
-const campsData = [
-    { id: 'CAMP001', name: 'Dental Camp - Pune', category: 'Healthcare Camp', specialty: 'Dental', date: '2025-03-10', venue: 'City School', address: 'Pune', partner: 'Smile Clinic', coordinator: 'Sneha', status: 'Completed', budget: 15000, actual: 14000, beneficiaries: 120, referrals: 12, volunteers: 8 },
-    { id: 'CAMP002', name: 'Awareness Session - Delhi', category: 'Awareness Session', specialty: 'N/A', date: '2025-04-05', venue: 'Community Hall', address: 'Delhi', partner: 'TechCorp', coordinator: 'Vipul', status: 'Completed', budget: 5000, actual: 4500, beneficiaries: 80, referrals: 2, volunteers: 5 },
-    { id: 'CAMP003', name: 'Meal Distribution - Mumbai', category: 'Meal Distribution', specialty: 'N/A', date: '2025-05-20', venue: 'Central Park', address: 'Mumbai', partner: 'Roti Bank', coordinator: 'Ramesh', status: 'Planned', budget: 20000, actual: 0, beneficiaries: 250, referrals: 0, volunteers: 12 },
-    { id: 'CAMP004', name: 'Eye Checkup Camp', category: 'Healthcare Camp', specialty: 'Eye Care', date: '2025-02-18', venue: 'Old Age Home', address: 'Bangalore', partner: 'Vision Care', coordinator: 'Sneha', status: 'Completed', budget: 18000, actual: 17500, beneficiaries: 95, referrals: 18, volunteers: 6 },
-    { id: 'CAMP005', name: 'Nutrition Program', category: 'Nutrition Program', specialty: 'Nutrition', date: '2025-06-01', venue: 'Anganwadi Center', address: 'Chennai', partner: 'Health India', coordinator: 'Anjali', status: 'Planned', budget: 25000, actual: 0, beneficiaries: 150, referrals: 5, volunteers: 10 },
-];
-
-const referralsData = [
-    { id: 'REF001', campId: 'CAMP001', beneficiaryCode: 'BEN001', type: 'Dental', referredTo: 'City Hospital', date: '2025-03-10', followUp: '2025-03-25', status: 'Treated', outcome: 'Completed', notes: 'Filling done' },
-    { id: 'REF002', campId: 'CAMP001', beneficiaryCode: 'BEN002', type: 'Dental', referredTo: 'Smile Clinic', date: '2025-03-10', followUp: '2025-03-20', status: 'Visited', outcome: 'Awaiting', notes: 'Needs extraction' },
-    { id: 'REF003', campId: 'CAMP004', beneficiaryCode: 'BEN078', type: 'Eye Care', referredTo: 'Vision Care', date: '2025-02-18', followUp: '2025-02-28', status: 'Treated', outcome: 'Completed', notes: 'Glasses given' },
-    { id: 'REF004', campId: 'CAMP004', beneficiaryCode: 'BEN079', type: 'Emergency', referredTo: 'City Hospital', date: '2025-02-18', followUp: '2025-02-19', status: 'Visited', outcome: 'Follow-up due', notes: 'BP issue' },
-    { id: 'REF005', campId: 'CAMP005', beneficiaryCode: 'BEN142', type: 'Nutrition', referredTo: 'Health India', date: '2025-06-01', followUp: '2025-06-15', status: 'Pending', outcome: 'None', notes: 'Counseled' },
-];
-
-const partnersData = [
-    { id: 'PART001', name: 'City Hospital', type: 'Hospital', contact: 'Dr. Mehta', phone: '9988776655', email: 'dr.mehta@cityhosp.com', location: 'Mumbai', firstEngagement: '2024-06-10', lastEngagement: '2025-03-10', events: 4, status: 'Active', notes: 'Reliable' },
-    { id: 'PART002', name: 'TechCorp', type: 'Corporate', contact: 'Anjali Iyer', phone: '8877665544', email: 'anjali@techcorp.com', location: 'Bangalore', firstEngagement: '2025-01-15', lastEngagement: '2025-04-05', events: 2, status: 'Active', notes: 'CSR partner' },
-    { id: 'PART003', name: 'Smile Clinic', type: 'Hospital', contact: 'Dr. Nair', phone: '7766554433', email: 'dr.nair@smileclinic.com', location: 'Pune', firstEngagement: '2024-08-20', lastEngagement: '2025-03-10', events: 3, status: 'Active', notes: 'Dental focus' },
-    { id: 'PART004', name: 'Roti Bank', type: 'NGO', contact: 'Suresh', phone: '6655443322', email: 'suresh@rotibank.org', location: 'Mumbai', firstEngagement: '2025-02-01', lastEngagement: '2025-05-20', events: 1, status: 'Active', notes: 'Meal support' },
-    { id: 'PART005', name: 'Health India', type: 'NGO', contact: 'Meena', phone: '5544332211', email: 'meena@healthindia.org', location: 'Chennai', firstEngagement: '2025-03-10', lastEngagement: '2025-06-01', events: 1, status: 'Active', notes: 'Nutrition programs' },
-];
-
-const internsData = [
-    { id: 'INT001', name: 'Neha Gupta', college: 'ABC College', course: 'B.Tech', facultyMentor: 'Dr. Rao', institutionCoordinator: 'Prof. Sharma', namjaiMentor: 'Vipul', project: 'Dashboard Dev', startDate: '2025-03-01', endDate: '2025-04-15', status: 'Completed', deliverables: 'Dashboard v1', certificateIssued: 'Yes', certificateDate: '2025-04-20', notes: 'Good performance' },
-    { id: 'INT002', name: 'Karthik', college: 'DEF Univ', course: 'MBA', facultyMentor: 'Dr. Menon', institutionCoordinator: 'Dr. Nair', namjaiMentor: 'Sneha', project: 'Outreach Plan', startDate: '2025-04-10', endDate: '2025-05-10', status: 'Completed', deliverables: '10 leads', certificateIssued: 'Yes', certificateDate: '2025-05-15', notes: 'Exceeded targets' },
-    { id: 'INT003', name: 'Pooja', college: 'GHI College', course: 'Social Work', facultyMentor: 'Ms. Singh', institutionCoordinator: 'Mr. Verma', namjaiMentor: 'Anjali', project: 'Camp Reporting', startDate: '2025-05-01', endDate: '2025-06-15', status: 'Ongoing', deliverables: 'Reports template', certificateIssued: 'No', certificateDate: '', notes: 'Needs guidance' },
-    { id: 'INT004', name: 'Rahul', college: 'JKL Univ', course: 'Public Health', facultyMentor: 'Dr. Iyer', institutionCoordinator: 'Dr. Rao', namjaiMentor: 'Ramesh', project: 'Beneficiary Study', startDate: '2025-05-20', endDate: '2025-07-10', status: 'Ongoing', deliverables: 'Survey analysis', certificateIssued: 'No', certificateDate: '', notes: 'Good researcher' },
-    { id: 'INT005', name: 'Ankita', college: 'MNO College', course: 'B.Com', facultyMentor: 'Ms. Pillai', institutionCoordinator: 'Prof. Mehta', namjaiMentor: 'Vipul', project: 'Fundraising', startDate: '2025-06-01', endDate: '2025-07-15', status: 'Ongoing', deliverables: 'Donor list', certificateIssued: 'No', certificateDate: '', notes: 'Creative ideas' },
-];
-
-// ========================================
-// PAGINATION STATE
-// ========================================
 let currentPage = 1;
 const rowsPerPage = 5;
-let filteredVolunteers = [...volunteersData];
+let filteredVolunteers = [];
 
-// Chart instances (to prevent duplicate renders)
+// Chart instances
 let campChartInstance = null;
 let laneChartInstance = null;
 
-// ========================================
+// ============================================
+// LOADING FUNCTIONS
+// ============================================
+
+/**
+ * Show loading indicator
+ */
+function showLoading(elementId) {
+    const el = document.getElementById(elementId);
+    if (el) {
+        el.innerHTML = '<div class="loading">⏳ Loading data...</div>';
+    }
+}
+
+/**
+ * Show error message
+ */
+function showError(elementId, message) {
+    const el = document.getElementById(elementId);
+    if (el) {
+        el.innerHTML = `<div class="error">❌ ${message}</div>`;
+    }
+}
+
+/**
+ * Load all data from Google Sheets
+ */
+async function loadAllData() {
+    try {
+        // Show loading states
+        showLoading('kpiGrid');
+        showLoading('activityList');
+        
+        // Fetch all data
+        const result = await fetchAllData();
+        
+        if (!result) {
+            throw new Error('No data received from API');
+        }
+        
+        // Store data
+        volunteersData = result.volunteers || [];
+        campsData = result.camps || [];
+        referralsData = result.referrals || [];
+        partnersData = result.partners || [];
+        internsData = result.interns || [];
+        beneficiarySummaryData = result.beneficiarySummary || [];
+        
+        // Render dashboard
+        renderDashboard();
+        
+    } catch (error) {
+        console.error('Error loading data:', error);
+        showError('kpiGrid', 'Failed to load data. Please refresh and try again.');
+    }
+}
+
+/**
+ * Load volunteers data for volunteers page
+ */
+async function loadVolunteersData() {
+    try {
+        volunteersData = await fetchVolunteers();
+        filteredVolunteers = [...volunteersData];
+        renderVolunteers();
+    } catch (error) {
+        console.error('Error loading volunteers:', error);
+        showError('volunteerTableBody', 'Failed to load volunteer data.');
+    }
+}
+
+/**
+ * Load camps data for camps page
+ */
+async function loadCampsData() {
+    try {
+        campsData = await fetchCamps();
+        renderCamps();
+    } catch (error) {
+        console.error('Error loading camps:', error);
+        showError('campTableBody', 'Failed to load camp data.');
+    }
+}
+
+/**
+ * Load referrals data for referrals page
+ */
+async function loadReferralsData() {
+    try {
+        referralsData = await fetchReferrals();
+        renderReferrals();
+    } catch (error) {
+        console.error('Error loading referrals:', error);
+        showError('referralTableBody', 'Failed to load referral data.');
+    }
+}
+
+/**
+ * Load partners data for partners page
+ */
+async function loadPartnersData() {
+    try {
+        partnersData = await fetchPartners();
+        renderPartners();
+    } catch (error) {
+        console.error('Error loading partners:', error);
+        showError('partnerTableBody', 'Failed to load partner data.');
+    }
+}
+
+/**
+ * Load interns data for interns page
+ */
+async function loadInternsData() {
+    try {
+        internsData = await fetchInterns();
+        renderInterns();
+    } catch (error) {
+        console.error('Error loading interns:', error);
+        showError('internTableBody', 'Failed to load intern data.');
+    }
+}
+
+// ============================================
 // DASHBOARD
-// ========================================
+// ============================================
+
 function renderDashboard() {
-    // KPIs
+    // Calculate KPIs from live data
     const totalVolunteers = volunteersData.length;
     const activeVolunteers = volunteersData.filter(v => v.status === 'Active').length;
     const totalCamps = campsData.length;
     const completedCamps = campsData.filter(c => c.status === 'Completed').length;
-    const totalBeneficiaries = campsData.reduce((sum, c) => sum + c.beneficiaries, 0);
+    
+    // Total Beneficiaries
+    let totalBeneficiaries = 0;
+    for (let i = 0; i < beneficiarySummaryData.length; i++) {
+        totalBeneficiaries += parseInt(beneficiarySummaryData[i].total) || 0;
+    }
+    
     const totalReferrals = referralsData.length;
     const treatedReferrals = referralsData.filter(r => r.status === 'Treated').length;
     const activePartners = partnersData.filter(p => p.status === 'Active').length;
@@ -89,138 +183,159 @@ function renderDashboard() {
         `).join('');
     }
 
-    // ---- CAMPS BY MONTH (Bar Chart using Chart.js) ----
-    const campCtx = document.getElementById('campChart')?.getContext('2d');
-    if (campCtx) {
-        // Destroy existing chart if it exists
-        if (campChartInstance) {
-            campChartInstance.destroy();
-        }
-        
-        campChartInstance = new Chart(campCtx, {
-            type: 'bar',
-            data: {
-                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
-                datasets: [{
-                    label: 'Number of Camps',
-                    data: [2, 1, 1, 0, 1, 0],
-                    backgroundColor: ['#1a73e8', '#1a73e8', '#1a73e8', '#dadce0', '#1a73e8', '#dadce0'],
-                    borderRadius: 6,
-                    borderSkipped: false,
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: true,
-                plugins: {
-                    legend: {
-                        display: false
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                return context.parsed.y + ' camp' + (context.parsed.y !== 1 ? 's' : '');
-                            }
-                        }
-                    }
-                },
-                scales: {
-                    y: {
-                        beginAtZero: true,
-                        ticks: {
-                            stepSize: 1,
-                            font: { size: 10 }
-                        },
-                        grid: {
-                            color: 'rgba(0,0,0,0.05)'
-                        }
-                    },
-                    x: {
-                        grid: {
-                            display: false
-                        },
-                        ticks: {
-                            font: { size: 10 }
-                        }
-                    }
-                }
-            }
-        });
-    }
+    // Charts
+    renderCharts();
 
-    // ---- VOLUNTEERS BY LANE (Pie Chart using Chart.js) ----
-    const laneCtx = document.getElementById('laneChart')?.getContext('2d');
-    if (laneCtx) {
-        // Destroy existing chart if it exists
-        if (laneChartInstance) {
-            laneChartInstance.destroy();
-        }
-
-        // Group volunteers by lane
-        const laneCounts = {};
-        volunteersData.forEach(v => {
-            laneCounts[v.lane] = (laneCounts[v.lane] || 0) + 1;
-        });
-
-        const laneLabels = Object.keys(laneCounts);
-        const laneValues = Object.values(laneCounts);
-        const colors = ['#1a73e8', '#34a853', '#fbbc04', '#ea4335', '#8ab4f8', '#f9ab00'];
-
-        laneChartInstance = new Chart(laneCtx, {
-            type: 'pie',
-            data: {
-                labels: laneLabels,
-                datasets: [{
-                    data: laneValues,
-                    backgroundColor: colors.slice(0, laneLabels.length),
-                    borderWidth: 2,
-                    borderColor: '#ffffff',
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: true,
-                plugins: {
-                    legend: {
-                        position: 'bottom',
-                        labels: {
-                            padding: 12,
-                            usePointStyle: true,
-                            pointStyle: 'circle',
-                            font: { size: 11 }
-                        }
-                    },
-                    tooltip: {
-                        callbacks: {
-                            label: function(context) {
-                                const total = context.dataset.data.reduce((a, b) => a + b, 0);
-                                const percentage = ((context.parsed / total) * 100).toFixed(1);
-                                return context.label + ': ' + context.parsed + ' (' + percentage + '%)';
-                            }
-                        }
-                    }
-                }
-            }
-        });
-    }
-
-    // ---- RECENT ACTIVITY ----
+    // Recent Activity (static for now, can be enhanced)
     const activityList = document.getElementById('activityList');
     if (activityList) {
         const activities = [
-            '✅ Priya Sharma joined as Volunteer (2026-06-10)',
-            '✅ Dental Camp - Pune completed (2026-06-09)',
-            '✅ 5 new referrals added (2026-06-08)',
-            '✅ City Hospital became Active Partner (2026-06-07)',
-            '✅ Neha Gupta completed internship (2026-06-06)',
+            `✅ ${volunteersData.length} volunteers registered`,
+            `✅ ${campsData.length} camps conducted`,
+            `✅ ${referralsData.length} referrals tracked`,
+            `✅ ${partnersData.length} active partners`,
+            `✅ ${internsData.length} interns onboarded`,
         ];
         activityList.innerHTML = activities.map(a => `<li>${a}</li>`).join('');
     }
 }
 
-// ========================================
+// ============================================
+// CHARTS (Using Chart.js with live data)
+// ============================================
+
+function renderCharts() {
+    renderCampChart();
+    renderLaneChart();
+}
+
+function renderCampChart() {
+    const campCtx = document.getElementById('campChart')?.getContext('2d');
+    if (!campCtx) return;
+
+    // Group camps by month
+    const monthMap = {};
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    
+    campsData.forEach(camp => {
+        if (camp.date) {
+            const date = new Date(camp.date);
+            const month = months[date.getMonth()];
+            if (month) {
+                monthMap[month] = (monthMap[month] || 0) + 1;
+            }
+        }
+    });
+
+    const labels = months.filter(m => monthMap[m]);
+    const values = labels.map(m => monthMap[m] || 0);
+
+    if (campChartInstance) {
+        campChartInstance.destroy();
+    }
+
+    campChartInstance = new Chart(campCtx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Number of Camps',
+                data: values,
+                backgroundColor: values.map(v => v > 0 ? '#1a73e8' : '#dadce0'),
+                borderRadius: 6,
+                borderSkipped: false,
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                legend: { display: false },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return context.parsed.y + ' camp' + (context.parsed.y !== 1 ? 's' : '');
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    ticks: { stepSize: 1, font: { size: 10 } },
+                    grid: { color: 'rgba(0,0,0,0.05)' }
+                },
+                x: {
+                    grid: { display: false },
+                    ticks: { font: { size: 10 } }
+                }
+            }
+        }
+    });
+}
+
+function renderLaneChart() {
+    const laneCtx = document.getElementById('laneChart')?.getContext('2d');
+    if (!laneCtx) return;
+
+    // Group volunteers by lane
+    const laneCounts = {};
+    volunteersData.forEach(v => {
+        if (v.lane) {
+            laneCounts[v.lane] = (laneCounts[v.lane] || 0) + 1;
+        }
+    });
+
+    const laneLabels = Object.keys(laneCounts);
+    const laneValues = Object.values(laneCounts);
+    const colors = ['#1a73e8', '#34a853', '#fbbc04', '#ea4335', '#8ab4f8', '#f9ab00', '#d93025'];
+
+    if (laneChartInstance) {
+        laneChartInstance.destroy();
+    }
+
+    laneChartInstance = new Chart(laneCtx, {
+        type: 'pie',
+        data: {
+            labels: laneLabels,
+            datasets: [{
+                data: laneValues,
+                backgroundColor: colors.slice(0, laneLabels.length),
+                borderWidth: 2,
+                borderColor: '#ffffff',
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                    labels: {
+                        padding: 12,
+                        usePointStyle: true,
+                        pointStyle: 'circle',
+                        font: { size: 11 }
+                    }
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            const total = context.dataset.data.reduce((a, b) => a + b, 0);
+                            const percentage = ((context.parsed / total) * 100).toFixed(1);
+                            return context.label + ': ' + context.parsed + ' (' + percentage + '%)';
+                        }
+                    }
+                }
+            }
+        }
+    });
+}
+
+// ============================================
 // VOLUNTEERS
-// ========================================
+// ============================================
+
 function renderVolunteers() {
     const search = document.getElementById('volunteerSearch')?.value.toLowerCase() || '';
     const typeFilter = document.getElementById('volunteerTypeFilter')?.value || 'all';
@@ -228,10 +343,12 @@ function renderVolunteers() {
     const laneFilter = document.getElementById('volunteerLaneFilter')?.value || 'all';
 
     filteredVolunteers = volunteersData.filter(v => {
-        const matchSearch = v.name.toLowerCase().includes(search) || v.email.toLowerCase().includes(search) || v.city.toLowerCase().includes(search);
-        const matchType = typeFilter === 'all' || v.type === typeFilter;
-        const matchStatus = statusFilter === 'all' || v.status === statusFilter;
-        const matchLane = laneFilter === 'all' || v.lane === laneFilter;
+        const matchSearch = (v.name || '').toLowerCase().includes(search) || 
+                           (v.email || '').toLowerCase().includes(search) || 
+                           (v.city || '').toLowerCase().includes(search);
+        const matchType = typeFilter === 'all' || (v.type || '') === typeFilter;
+        const matchStatus = statusFilter === 'all' || (v.status || '') === statusFilter;
+        const matchLane = laneFilter === 'all' || (v.lane || '') === laneFilter;
         return matchSearch && matchType && matchStatus && matchLane;
     });
 
@@ -244,16 +361,20 @@ function renderVolunteers() {
 
     const tbody = document.getElementById('volunteerTableBody');
     if (tbody) {
-        tbody.innerHTML = pageData.map(v => `
-            <tr class="clickable" data-id="${v.id}">
-                <td>${v.id}</td>
-                <td>${v.name}</td>
-                <td>${v.type}</td>
-                <td>${v.lane}</td>
-                <td><span class="badge ${v.status === 'Active' ? 'badge-success' : v.status === 'Inactive' ? 'badge-danger' : 'badge-neutral'}">${v.status}</span></td>
-                <td>${v.city}</td>
-            </tr>
-        `).join('');
+        if (pageData.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:2rem;">No volunteers found</td></tr>';
+        } else {
+            tbody.innerHTML = pageData.map(v => `
+                <tr class="clickable" data-id="${v.id || ''}">
+                    <td>${v.id || 'N/A'}</td>
+                    <td>${v.name || 'N/A'}</td>
+                    <td>${v.type || 'N/A'}</td>
+                    <td>${v.lane || 'N/A'}</td>
+                    <td><span class="badge ${v.status === 'Active' ? 'badge-success' : v.status === 'Inactive' ? 'badge-danger' : 'badge-neutral'}">${v.status || 'N/A'}</span></td>
+                    <td>${v.city || 'N/A'}</td>
+                </tr>
+            `).join('');
+        }
 
         tbody.querySelectorAll('.clickable').forEach(row => {
             row.addEventListener('click', function() {
@@ -278,50 +399,55 @@ function renderVolunteers() {
 function openVolunteerModal(vol) {
     const modal = document.getElementById('volunteerModal');
     if (!modal) return;
-    document.getElementById('modalName').textContent = vol.name;
+    document.getElementById('modalName').textContent = vol.name || 'Volunteer';
     document.getElementById('modalDetails').innerHTML = `
-        <div class="detail-row"><span class="detail-label">Volunteer ID</span><span class="detail-value">${vol.id}</span></div>
-        <div class="detail-row"><span class="detail-label">Email</span><span class="detail-value">${vol.email}</span></div>
-        <div class="detail-row"><span class="detail-label">Phone</span><span class="detail-value">${vol.phone}</span></div>
-        <div class="detail-row"><span class="detail-label">City</span><span class="detail-value">${vol.city}</span></div>
-        <div class="detail-row"><span class="detail-label">Type</span><span class="detail-value">${vol.type}</span></div>
-        <div class="detail-row"><span class="detail-label">Lane</span><span class="detail-value">${vol.lane}</span></div>
-        <div class="detail-row"><span class="detail-label">Status</span><span class="detail-value"><span class="badge ${vol.status === 'Active' ? 'badge-success' : vol.status === 'Inactive' ? 'badge-danger' : 'badge-neutral'}">${vol.status}</span></span></div>
+        <div class="detail-row"><span class="detail-label">Volunteer ID</span><span class="detail-value">${vol.id || 'N/A'}</span></div>
+        <div class="detail-row"><span class="detail-label">Email</span><span class="detail-value">${vol.email || 'N/A'}</span></div>
+        <div class="detail-row"><span class="detail-label">Phone</span><span class="detail-value">${vol.phone || 'N/A'}</span></div>
+        <div class="detail-row"><span class="detail-label">City</span><span class="detail-value">${vol.city || 'N/A'}</span></div>
+        <div class="detail-row"><span class="detail-label">Type</span><span class="detail-value">${vol.type || 'N/A'}</span></div>
+        <div class="detail-row"><span class="detail-label">Lane</span><span class="detail-value">${vol.lane || 'N/A'}</span></div>
+        <div class="detail-row"><span class="detail-label">Status</span><span class="detail-value"><span class="badge ${vol.status === 'Active' ? 'badge-success' : vol.status === 'Inactive' ? 'badge-danger' : 'badge-neutral'}">${vol.status || 'N/A'}</span></span></div>
         <div class="detail-row"><span class="detail-label">Skills</span><span class="detail-value">${vol.skills || 'N/A'}</span></div>
-        <div class="detail-row"><span class="detail-label">Hours Contributed</span><span class="detail-value">${vol.hours}</span></div>
-        <div class="detail-row"><span class="detail-label">Events Participated</span><span class="detail-value">${vol.events}</span></div>
+        <div class="detail-row"><span class="detail-label">Hours Contributed</span><span class="detail-value">${vol.hours || 0}</span></div>
+        <div class="detail-row"><span class="detail-label">Events Participated</span><span class="detail-value">${vol.events || 0}</span></div>
     `;
     modal.classList.add('active');
 }
 
-// ========================================
+// ============================================
 // CAMPS
-// ========================================
+// ============================================
+
 function renderCamps() {
     const search = document.getElementById('campSearch')?.value.toLowerCase() || '';
     const categoryFilter = document.getElementById('campCategoryFilter')?.value || 'all';
     const statusFilter = document.getElementById('campStatusFilter')?.value || 'all';
 
     const filtered = campsData.filter(c => {
-        const matchSearch = c.name.toLowerCase().includes(search) || c.venue.toLowerCase().includes(search);
-        const matchCategory = categoryFilter === 'all' || c.category === categoryFilter;
-        const matchStatus = statusFilter === 'all' || c.status === statusFilter;
+        const matchSearch = (c.name || '').toLowerCase().includes(search) || (c.venue || '').toLowerCase().includes(search);
+        const matchCategory = categoryFilter === 'all' || (c.category || '') === categoryFilter;
+        const matchStatus = statusFilter === 'all' || (c.status || '') === statusFilter;
         return matchSearch && matchCategory && matchStatus;
     });
 
     const tbody = document.getElementById('campTableBody');
     if (tbody) {
-        tbody.innerHTML = filtered.map(c => `
-            <tr class="clickable" data-id="${c.id}">
-                <td>${c.id}</td>
-                <td>${c.name}</td>
-                <td>${c.category}</td>
-                <td>${c.date}</td>
-                <td><span class="badge ${c.status === 'Completed' ? 'badge-success' : c.status === 'Planned' ? 'badge-warning' : 'badge-danger'}">${c.status}</span></td>
-                <td>${c.beneficiaries}</td>
-                <td>${c.referrals}</td>
-            </tr>
-        `).join('');
+        if (filtered.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:2rem;">No camps found</td></tr>';
+        } else {
+            tbody.innerHTML = filtered.map(c => `
+                <tr class="clickable" data-id="${c.id || ''}">
+                    <td>${c.id || 'N/A'}</td>
+                    <td>${c.name || 'N/A'}</td>
+                    <td>${c.category || 'N/A'}</td>
+                    <td>${c.date || 'N/A'}</td>
+                    <td><span class="badge ${c.status === 'Completed' ? 'badge-success' : c.status === 'Planned' ? 'badge-warning' : 'badge-danger'}">${c.status || 'N/A'}</span></td>
+                    <td>${c.beneficiaries || 0}</td>
+                    <td>${c.referrals || 0}</td>
+                </tr>
+            `).join('');
+        }
 
         tbody.querySelectorAll('.clickable').forEach(row => {
             row.addEventListener('click', function() {
@@ -336,50 +462,55 @@ function renderCamps() {
 function openCampModal(camp) {
     const modal = document.getElementById('campModal');
     if (!modal) return;
-    document.getElementById('campModalName').textContent = camp.name;
+    document.getElementById('campModalName').textContent = camp.name || 'Camp';
     document.getElementById('campModalDetails').innerHTML = `
-        <div class="detail-row"><span class="detail-label">Camp ID</span><span class="detail-value">${camp.id}</span></div>
-        <div class="detail-row"><span class="detail-label">Category</span><span class="detail-value">${camp.category}</span></div>
-        <div class="detail-row"><span class="detail-label">Date</span><span class="detail-value">${camp.date}</span></div>
-        <div class="detail-row"><span class="detail-label">Venue</span><span class="detail-value">${camp.venue}</span></div>
-        <div class="detail-row"><span class="detail-label">Address</span><span class="detail-value">${camp.address}</span></div>
-        <div class="detail-row"><span class="detail-label">Partner</span><span class="detail-value">${camp.partner}</span></div>
-        <div class="detail-row"><span class="detail-label">Coordinator</span><span class="detail-value">${camp.coordinator}</span></div>
-        <div class="detail-row"><span class="detail-label">Status</span><span class="detail-value"><span class="badge ${camp.status === 'Completed' ? 'badge-success' : camp.status === 'Planned' ? 'badge-warning' : 'badge-danger'}">${camp.status}</span></span></div>
-        <div class="detail-row"><span class="detail-label">Budget</span><span class="detail-value">₹${camp.budget}</span></div>
-        <div class="detail-row"><span class="detail-label">Actual Cost</span><span class="detail-value">₹${camp.actual}</span></div>
-        <div class="detail-row"><span class="detail-label">Volunteers</span><span class="detail-value">${camp.volunteers}</span></div>
-        <div class="detail-row"><span class="detail-label">Beneficiaries</span><span class="detail-value">${camp.beneficiaries}</span></div>
-        <div class="detail-row"><span class="detail-label">Referrals</span><span class="detail-value">${camp.referrals}</span></div>
+        <div class="detail-row"><span class="detail-label">Camp ID</span><span class="detail-value">${camp.id || 'N/A'}</span></div>
+        <div class="detail-row"><span class="detail-label">Category</span><span class="detail-value">${camp.category || 'N/A'}</span></div>
+        <div class="detail-row"><span class="detail-label">Date</span><span class="detail-value">${camp.date || 'N/A'}</span></div>
+        <div class="detail-row"><span class="detail-label">Venue</span><span class="detail-value">${camp.venue || 'N/A'}</span></div>
+        <div class="detail-row"><span class="detail-label">Address</span><span class="detail-value">${camp.address || 'N/A'}</span></div>
+        <div class="detail-row"><span class="detail-label">Partner</span><span class="detail-value">${camp.partner || 'N/A'}</span></div>
+        <div class="detail-row"><span class="detail-label">Coordinator</span><span class="detail-value">${camp.coordinator || 'N/A'}</span></div>
+        <div class="detail-row"><span class="detail-label">Status</span><span class="detail-value"><span class="badge ${camp.status === 'Completed' ? 'badge-success' : camp.status === 'Planned' ? 'badge-warning' : 'badge-danger'}">${camp.status || 'N/A'}</span></span></div>
+        <div class="detail-row"><span class="detail-label">Budget</span><span class="detail-value">₹${camp.budget || 0}</span></div>
+        <div class="detail-row"><span class="detail-label">Actual Cost</span><span class="detail-value">₹${camp.actual || 0}</span></div>
+        <div class="detail-row"><span class="detail-label">Volunteers</span><span class="detail-value">${camp.volunteers || 0}</span></div>
+        <div class="detail-row"><span class="detail-label">Beneficiaries</span><span class="detail-value">${camp.beneficiaries || 0}</span></div>
+        <div class="detail-row"><span class="detail-label">Referrals</span><span class="detail-value">${camp.referrals || 0}</span></div>
     `;
     modal.classList.add('active');
 }
 
-// ========================================
+// ============================================
 // REFERRALS
-// ========================================
+// ============================================
+
 function renderReferrals() {
     const search = document.getElementById('referralSearch')?.value.toLowerCase() || '';
     const statusFilter = document.getElementById('referralStatusFilter')?.value || 'all';
 
     const filtered = referralsData.filter(r => {
-        const matchSearch = r.beneficiaryCode.toLowerCase().includes(search);
-        const matchStatus = statusFilter === 'all' || r.status === statusFilter;
+        const matchSearch = (r.beneficiaryCode || '').toLowerCase().includes(search);
+        const matchStatus = statusFilter === 'all' || (r.status || '') === statusFilter;
         return matchSearch && matchStatus;
     });
 
     const tbody = document.getElementById('referralTableBody');
     if (tbody) {
-        tbody.innerHTML = filtered.map(r => `
-            <tr>
-                <td>${r.id}</td>
-                <td>${r.campId}</td>
-                <td>${r.beneficiaryCode}</td>
-                <td>${r.referredTo}</td>
-                <td>${r.date}</td>
-                <td><span class="badge ${r.status === 'Treated' ? 'badge-success' : r.status === 'Pending' ? 'badge-warning' : r.status === 'Visited' ? 'badge-info' : 'badge-neutral'}">${r.status}</span></td>
-            </tr>
-        `).join('');
+        if (filtered.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:2rem;">No referrals found</td></tr>';
+        } else {
+            tbody.innerHTML = filtered.map(r => `
+                <tr>
+                    <td>${r.id || 'N/A'}</td>
+                    <td>${r.campId || 'N/A'}</td>
+                    <td>${r.beneficiaryCode || 'N/A'}</td>
+                    <td>${r.referredTo || 'N/A'}</td>
+                    <td>${r.date || 'N/A'}</td>
+                    <td><span class="badge ${r.status === 'Treated' ? 'badge-success' : r.status === 'Pending' ? 'badge-warning' : r.status === 'Visited' ? 'badge-info' : 'badge-neutral'}">${r.status || 'N/A'}</span></td>
+                </tr>
+            `).join('');
+        }
     }
 
     const summary = document.getElementById('referralStatusSummary');
@@ -396,69 +527,79 @@ function renderReferrals() {
     }
 }
 
-// ========================================
+// ============================================
 // PARTNERS
-// ========================================
+// ============================================
+
 function renderPartners() {
     const search = document.getElementById('partnerSearch')?.value.toLowerCase() || '';
     const typeFilter = document.getElementById('partnerTypeFilter')?.value || 'all';
     const statusFilter = document.getElementById('partnerStatusFilter')?.value || 'all';
 
     const filtered = partnersData.filter(p => {
-        const matchSearch = p.name.toLowerCase().includes(search);
-        const matchType = typeFilter === 'all' || p.type === typeFilter;
-        const matchStatus = statusFilter === 'all' || p.status === statusFilter;
+        const matchSearch = (p.name || '').toLowerCase().includes(search);
+        const matchType = typeFilter === 'all' || (p.type || '') === typeFilter;
+        const matchStatus = statusFilter === 'all' || (p.status || '') === statusFilter;
         return matchSearch && matchType && matchStatus;
     });
 
     const tbody = document.getElementById('partnerTableBody');
     if (tbody) {
-        tbody.innerHTML = filtered.map(p => `
-            <tr>
-                <td>${p.id}</td>
-                <td>${p.name}</td>
-                <td>${p.type}</td>
-                <td>${p.contact}</td>
-                <td>${p.phone}</td>
-                <td><span class="badge ${p.status === 'Active' ? 'badge-success' : p.status === 'Dormant' ? 'badge-warning' : 'badge-danger'}">${p.status}</span></td>
-            </tr>
-        `).join('');
+        if (filtered.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:2rem;">No partners found</td></tr>';
+        } else {
+            tbody.innerHTML = filtered.map(p => `
+                <tr>
+                    <td>${p.id || 'N/A'}</td>
+                    <td>${p.name || 'N/A'}</td>
+                    <td>${p.type || 'N/A'}</td>
+                    <td>${p.contact || 'N/A'}</td>
+                    <td>${p.phone || 'N/A'}</td>
+                    <td><span class="badge ${p.status === 'Active' ? 'badge-success' : p.status === 'Dormant' ? 'badge-warning' : 'badge-danger'}">${p.status || 'N/A'}</span></td>
+                </tr>
+            `).join('');
+        }
     }
 }
 
-// ========================================
+// ============================================
 // INTERNS
-// ========================================
+// ============================================
+
 function renderInterns() {
     const search = document.getElementById('internSearch')?.value.toLowerCase() || '';
     const statusFilter = document.getElementById('internStatusFilter')?.value || 'all';
     const collegeFilter = document.getElementById('internCollegeFilter')?.value || 'all';
 
     const filtered = internsData.filter(i => {
-        const matchSearch = i.name.toLowerCase().includes(search) || i.college.toLowerCase().includes(search);
-        const matchStatus = statusFilter === 'all' || i.status === statusFilter;
-        const matchCollege = collegeFilter === 'all' || i.college === collegeFilter;
+        const matchSearch = (i.name || '').toLowerCase().includes(search) || (i.college || '').toLowerCase().includes(search);
+        const matchStatus = statusFilter === 'all' || (i.status || '') === statusFilter;
+        const matchCollege = collegeFilter === 'all' || (i.college || '') === collegeFilter;
         return matchSearch && matchStatus && matchCollege;
     });
 
     const tbody = document.getElementById('internTableBody');
     if (tbody) {
-        tbody.innerHTML = filtered.map(i => `
-            <tr>
-                <td>${i.id}</td>
-                <td>${i.name}</td>
-                <td>${i.college}</td>
-                <td>${i.project}</td>
-                <td><span class="badge ${i.status === 'Completed' ? 'badge-success' : 'badge-warning'}">${i.status}</span></td>
-                <td><span class="badge ${i.certificateIssued === 'Yes' ? 'badge-success' : 'badge-warning'}">${i.certificateIssued === 'Yes' ? '✅ Issued' : '⏳ Pending'}</span></td>
-            </tr>
-        `).join('');
+        if (filtered.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:2rem;">No interns found</td></tr>';
+        } else {
+            tbody.innerHTML = filtered.map(i => `
+                <tr>
+                    <td>${i.id || 'N/A'}</td>
+                    <td>${i.name || 'N/A'}</td>
+                    <td>${i.college || 'N/A'}</td>
+                    <td>${i.project || 'N/A'}</td>
+                    <td><span class="badge ${i.status === 'Completed' ? 'badge-success' : 'badge-warning'}">${i.status || 'N/A'}</span></td>
+                    <td><span class="badge ${i.certificateIssued === 'Yes' ? 'badge-success' : 'badge-warning'}">${i.certificateIssued === 'Yes' ? '✅ Issued' : '⏳ Pending'}</span></td>
+                </tr>
+            `).join('');
+        }
     }
 
     const summary = document.getElementById('internStatusSummary');
     if (summary) {
         const issued = internsData.filter(i => i.certificateIssued === 'Yes').length;
-        const pending = internsData.filter(i => i.certificateIssued === 'No').length;
+        const pending = internsData.filter(i => i.certificateIssued === 'No' || i.certificateIssued === '').length;
         summary.innerHTML = `
             <span class="summary-item">✅ Issued: <span class="count">${issued}</span></span>
             <span class="summary-item">⏳ Pending: <span class="count">${pending}</span></span>
@@ -467,10 +608,12 @@ function renderInterns() {
     }
 }
 
-// ========================================
-// NAVIGATION TOGGLE (Mobile)
-// ========================================
+// ============================================
+// NAVIGATION TOGGLE
+// ============================================
+
 document.addEventListener('DOMContentLoaded', function() {
+    // Navigation toggle
     const toggle = document.getElementById('navToggle');
     const menu = document.getElementById('navMenu');
     if (toggle && menu) {
@@ -486,7 +629,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Close modal on outside click
     document.querySelectorAll('.modal').forEach(modal => {
         modal.addEventListener('click', function(e) {
             if (e.target === this) {
@@ -495,7 +637,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Determine which page we're on and render accordingly
+    // Page detection and loading
     const path = window.location.pathname;
 
     if (path.includes('volunteers.html')) {
@@ -505,28 +647,28 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('volunteerTypeFilter')?.addEventListener('change', () => { currentPage = 1; renderVolunteers(); });
         document.getElementById('volunteerStatusFilter')?.addEventListener('change', () => { currentPage = 1; renderVolunteers(); });
         document.getElementById('volunteerLaneFilter')?.addEventListener('change', () => { currentPage = 1; renderVolunteers(); });
-        renderVolunteers();
+        loadVolunteersData();
     } else if (path.includes('camps.html')) {
         document.getElementById('campSearch')?.addEventListener('input', renderCamps);
         document.getElementById('campCategoryFilter')?.addEventListener('change', renderCamps);
         document.getElementById('campStatusFilter')?.addEventListener('change', renderCamps);
-        renderCamps();
+        loadCampsData();
     } else if (path.includes('referrals.html')) {
         document.getElementById('referralSearch')?.addEventListener('input', renderReferrals);
         document.getElementById('referralStatusFilter')?.addEventListener('change', renderReferrals);
-        renderReferrals();
+        loadReferralsData();
     } else if (path.includes('partners.html')) {
         document.getElementById('partnerSearch')?.addEventListener('input', renderPartners);
         document.getElementById('partnerTypeFilter')?.addEventListener('change', renderPartners);
         document.getElementById('partnerStatusFilter')?.addEventListener('change', renderPartners);
-        renderPartners();
+        loadPartnersData();
     } else if (path.includes('interns.html')) {
         document.getElementById('internSearch')?.addEventListener('input', renderInterns);
         document.getElementById('internStatusFilter')?.addEventListener('change', renderInterns);
         document.getElementById('internCollegeFilter')?.addEventListener('change', renderInterns);
-        renderInterns();
+        loadInternsData();
     } else {
         // Dashboard (index.html)
-        renderDashboard();
+        loadAllData();
     }
 });
