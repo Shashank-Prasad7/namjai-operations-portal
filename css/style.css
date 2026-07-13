@@ -579,3 +579,46 @@ tr.clickable:hover {
     border-radius: 8px;
     margin: 1rem 0;
 }
+
+/* ===== PARTICIPATION STATS ===== */
+.participation-stats {
+    display: flex;
+    gap: 2rem;
+    margin-bottom: 1rem;
+    padding: 0.5rem 0;
+}
+
+.participation-stats .stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.participation-stats .stat-value {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #1a73e8;
+}
+
+.participation-stats .stat-label {
+    font-size: 0.8rem;
+    color: #5f6368;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.participation-table {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.participation-table table {
+    font-size: 0.85rem;
+}
+
+.participation-table th {
+    background: #f8f9fa;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
