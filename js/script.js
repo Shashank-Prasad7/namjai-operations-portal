@@ -8,6 +8,7 @@ let referralsData = [];
 let partnersData = [];
 let internsData = [];
 let beneficiarySummaryData = [];
+let participationData = []; // NEW
 
 let currentPage = 1;
 const rowsPerPage = 5;
@@ -64,6 +65,15 @@ async function loadAllData() {
         partnersData = result.partners || [];
         internsData = result.interns || [];
         beneficiarySummaryData = result.beneficiarySummary || [];
+        
+        // Sample participation data (will be replaced with live data in Phase 4)
+        participationData = [
+            { id: 'PAR001', volunteerId: 'VOL001', campId: 'CAMP001', role: 'Data Entry', hours: 6.75, status: 'Present' },
+            { id: 'PAR002', volunteerId: 'VOL005', campId: 'CAMP001', role: 'Dental Assistant', hours: 6.0, status: 'Present' },
+            { id: 'PAR003', volunteerId: 'VOL002', campId: 'CAMP002', role: 'Speaker', hours: 2.33, status: 'Present' },
+            { id: 'PAR004', volunteerId: 'VOL003', campId: 'CAMP003', role: 'Coordinator', hours: 3.5, status: 'Late' },
+            { id: 'PAR005', volunteerId: 'VOL004', campId: 'CAMP004', role: 'Logistics', hours: 7.5, status: 'Present' },
+        ];
         
         // Render dashboard
         renderDashboard();
@@ -186,7 +196,7 @@ function renderDashboard() {
     // Charts
     renderCharts();
 
-    // Recent Activity (static for now, can be enhanced)
+    // Recent Activity
     const activityList = document.getElementById('activityList');
     if (activityList) {
         const activities = [
@@ -197,6 +207,57 @@ function renderDashboard() {
             `✅ ${internsData.length} interns onboarded`,
         ];
         activityList.innerHTML = activities.map(a => `<li>${a}</li>`).join('');
+    }
+
+    // Render Volunteer Participation (NEW)
+    renderParticipation();
+}
+
+// ============================================
+// VOLUNTEER PARTICIPATION (NEW)
+// ============================================
+
+function renderParticipation() {
+    // Stats
+    const statsContainer = document.getElementById('participationStats');
+    if (statsContainer) {
+        const totalParticipations = participationData.length;
+        const totalHours = participationData.reduce((sum, p) => sum + p.hours, 0);
+        const presentCount = participationData.filter(p => p.status === 'Present').length;
+        
+        statsContainer.innerHTML = `
+            <div class="stat">
+                <span class="stat-value">${totalParticipations}</span>
+                <span class="stat-label">Total Participations</span>
+            </div>
+            <div class="stat">
+                <span class="stat-value">${totalHours.toFixed(1)}</span>
+                <span class="stat-label">Total Hours</span>
+            </div>
+            <div class="stat">
+                <span class="stat-value">${presentCount}</span>
+                <span class="stat-label">Present</span>
+            </div>
+        `;
+    }
+
+    // Table
+    const tbody = document.getElementById('participationTableBody');
+    if (tbody) {
+        const latest = participationData.slice(0, 5);
+        if (latest.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:1rem;">No participation records found</td></tr>';
+        } else {
+            tbody.innerHTML = latest.map(p => `
+                <tr>
+                    <td>${p.volunteerId || 'N/A'}</td>
+                    <td>${p.campId || 'N/A'}</td>
+                    <td>${p.role || 'N/A'}</td>
+                    <td>${p.hours || 0}</td>
+                    <td><span class="badge ${p.status === 'Present' ? 'badge-success' : 'badge-warning'}">${p.status || 'N/A'}</span></td>
+                </tr>
+            `).join('');
+        }
     }
 }
 
