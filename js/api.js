@@ -70,9 +70,18 @@ async function fetchDashboardMetrics() {
 }
 
 /**
+ * Fetch participation data
+ */
+async function fetchParticipation() {
+    const result = await fetchSheetData(API_ENDPOINTS.participation);
+    return result.success ? result.data : [];
+}
+
+/**
  * Fetch all data at once
  */
 async function fetchAllData() {
     const result = await fetchSheetData(API_ENDPOINTS.all);
     return result.success ? result : null;
 }
+
