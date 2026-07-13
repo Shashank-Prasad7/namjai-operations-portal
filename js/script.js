@@ -66,14 +66,16 @@ async function loadAllData() {
         internsData = result.interns || [];
         beneficiarySummaryData = result.beneficiarySummary || [];
         
-        // Sample participation data (will be replaced with live data in Phase 4)
-        participationData = [
-            { id: 'PAR001', volunteerId: 'VOL001', campId: 'CAMP001', role: 'Data Entry', hours: 6.75, status: 'Present' },
-            { id: 'PAR002', volunteerId: 'VOL005', campId: 'CAMP001', role: 'Dental Assistant', hours: 6.0, status: 'Present' },
-            { id: 'PAR003', volunteerId: 'VOL002', campId: 'CAMP002', role: 'Speaker', hours: 2.33, status: 'Present' },
-            { id: 'PAR004', volunteerId: 'VOL003', campId: 'CAMP003', role: 'Coordinator', hours: 3.5, status: 'Late' },
-            { id: 'PAR005', volunteerId: 'VOL004', campId: 'CAMP004', role: 'Logistics', hours: 7.5, status: 'Present' },
-        ];
+        // Load participation data from Google Sheets
+        async function loadParticipationData() {
+            try {
+                participationData = await fetchParticipation();
+                renderParticipation();
+            } catch (error) {
+                console.error('Error loading participation:', error);
+            // Keep existing data if API fails
+            }
+}
         
         // Render dashboard
         renderDashboard();
