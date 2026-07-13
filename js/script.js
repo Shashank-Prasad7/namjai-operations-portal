@@ -8,7 +8,7 @@ let referralsData = [];
 let partnersData = [];
 let internsData = [];
 let beneficiarySummaryData = [];
-let participationData = []; // NEW
+let participationData = [];
 
 let currentPage = 1;
 const rowsPerPage = 5;
@@ -65,17 +65,7 @@ async function loadAllData() {
         partnersData = result.partners || [];
         internsData = result.interns || [];
         beneficiarySummaryData = result.beneficiarySummary || [];
-        
-        // Load participation data from Google Sheets
-        async function loadParticipationData() {
-            try {
-                participationData = await fetchParticipation();
-                renderParticipation();
-            } catch (error) {
-                console.error('Error loading participation:', error);
-            // Keep existing data if API fails
-            }
-}
+        participationData = result.participation || []; // NEW: Load from API
         
         // Render dashboard
         renderDashboard();
@@ -211,12 +201,12 @@ function renderDashboard() {
         activityList.innerHTML = activities.map(a => `<li>${a}</li>`).join('');
     }
 
-    // Render Volunteer Participation (NEW)
+    // Render Volunteer Participation (from live data)
     renderParticipation();
 }
 
 // ============================================
-// VOLUNTEER PARTICIPATION (NEW)
+// VOLUNTEER PARTICIPATION (LIVE DATA)
 // ============================================
 
 function renderParticipation() {
@@ -224,7 +214,7 @@ function renderParticipation() {
     const statsContainer = document.getElementById('participationStats');
     if (statsContainer) {
         const totalParticipations = participationData.length;
-        const totalHours = participationData.reduce((sum, p) => sum + p.hours, 0);
+        const totalHours = participationData.reduce((sum, p) => sum + parseFloat(p.hours || 0), 0);
         const presentCount = participationData.filter(p => p.status === 'Present').length;
         
         statsContainer.innerHTML = `
@@ -246,6 +236,7 @@ function renderParticipation() {
     // Table
     const tbody = document.getElementById('participationTableBody');
     if (tbody) {
+        // Show latest 5 participations
         const latest = participationData.slice(0, 5);
         if (latest.length === 0) {
             tbody.innerHTML = '<tr><td colspan="5" style="text-align:center;padding:1rem;">No participation records found</td></tr>';
